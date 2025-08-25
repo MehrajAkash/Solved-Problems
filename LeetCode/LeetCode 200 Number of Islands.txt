@@ -1,0 +1,50 @@
+class Solution {
+public:
+
+    bool isSafe(vector<vector<char>>& grid, int r, int c, vector<vector<bool>>& visited){
+
+        return (r>=0 && r<grid.size()) && (c>=0 && c<grid[0].size()) && (grid[r][c]=='1' && !visited[r][c]);
+
+    }
+
+    void dfs(vector<vector<char>> &grid, int r, int c, vector<vector<bool>> &visited){
+        vector<int>rNbr = { 0, 1, 0, -1 };
+        vector<int>cNbr = { 1, 0, -1, 0 };
+
+        visited[r][c]=true;
+
+        for(int k=0; k<4; k++){
+            int NewRow = r + rNbr[k];
+            int NewCol = c + cNbr[k];
+
+            if(isSafe(grid, NewRow, NewCol, visited)){
+                dfs(grid, NewRow, NewCol, visited);
+            }
+            
+        }
+
+    }
+
+    int numIslands(vector<vector<char>>& grid) {
+        
+       int row = grid.size();
+       int col = grid[0].size();
+
+       vector<vector<bool>>visited( row, vector<bool>(col, false) );
+
+       int count =0;
+
+       for(int r=0; r<row; r++){
+         for(int c=0; c<col; c++){
+            
+            if(grid[r][c]=='1' && ! visited[r][c]){
+                count++;
+                dfs(grid, r, c, visited);
+            }
+
+         }
+       }
+
+      return count;
+    }
+};
