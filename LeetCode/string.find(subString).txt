@@ -1,0 +1,12 @@
+class Solution {
+public:
+    int strStr(string haystack, string needle) {
+        int r;
+        if( haystack.find(needle) < haystack.size() )
+        {
+            return haystack.find(needle);
+        }
+    
+        return -1;
+    }
+};
