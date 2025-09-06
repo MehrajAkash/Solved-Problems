@@ -10,3 +10,11 @@ public:
         return -1;
     }
 };
+
+Input: haystack = "sadbutsad", needle = "sad"
+Output: 0
+
+needle is a substring of haystack and substring 'sad' matched from index: 0 to 2;
+result string.find(substring) return first index value 0;
+
+link: https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/description/?envType=study-plan-v2&envId=programming-skills
