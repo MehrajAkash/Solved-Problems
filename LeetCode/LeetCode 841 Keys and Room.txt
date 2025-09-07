@@ -1,3 +1,4 @@
+/// Using BFS
 class Solution {
 public:
     bool canVisitAllRooms(vector<vector<int>>& rooms) {
@@ -21,13 +22,49 @@ public:
                     cnt++;
                 }
             }
-
         }
 
         if( cnt == sz)return true;
         else{
             return false;
         }
+    }
+};
+
+
+/// Using DFS
+int sz;
+const int mx = 1001;
+ int vis[mx];
+int cnt;
+
+class Solution {
+public:
+
+    void dfs(int s, vector<vector<int>>& rooms ){
+
+        vis[s]=1;
+        cnt++;
+        for(int x : rooms[s])
+        {
+            if(vis[x]==0){
+                dfs(x, rooms);
+            }
+        }
+    }
+
+    bool canVisitAllRooms(vector<vector<int>>& rooms) {
+        
+        memset(vis, 0, sizeof(vis));
+        cnt=0;
+
+        dfs(0, rooms);
+
+        if(cnt==rooms.size())return true;
+        else{
+            return false;
+        }
 
     }
 };
+
