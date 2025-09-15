@@ -1,0 +1,37 @@
+class Solution {
+public:
+    int binarySearch(vector<int>& num, int req, int left )
+    {
+        int right = num.size()-1;
+        int mid;
+        while(left <= right)
+        {
+             mid = (left+right)/2;
+
+            if(num[mid]==req){
+                return mid;
+            }
+            else if( num[mid] < req ){
+                left = mid+1;
+            }
+            else{
+                right = mid-1;
+            }
+        }
+        return -1;
+    }
+
+    vector<int> twoSum(vector<int>& num, int target) {
+
+        for(int i=0; i<num.size()-1; i++)
+        {
+            int reqSum = target - num[i];
+
+           int sindex = binarySearch(num, reqSum, i+1);
+
+            if(sindex != -1 && (num[i]+num[sindex]==target) ) return {i+1, sindex+1};
+        }
+        
+        return {-1, -1};
+    }
+};
