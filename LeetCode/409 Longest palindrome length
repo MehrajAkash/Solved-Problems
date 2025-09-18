@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int longestPalindrome(string s) {
+        int sz = s.size();
+        int res=0, odd=0;
+
+        unordered_map <char, int> mp;
+        for(int i=0; i<sz; i++)
+        {
+            mp[s[i]]++;
+        }
+
+        for(auto v : mp ){
+            if( v.second %2 == 0 ){
+                res += v.second;
+            }
+            else{
+                res += v.second - 1;
+                odd = max(odd, v.second);
+            }
+        }
+
+        if(odd>0)res+=1; // +1 cz most odd freqency set in the middle
+
+        return res;
+    }
+};
