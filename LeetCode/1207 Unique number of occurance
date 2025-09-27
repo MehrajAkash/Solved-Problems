@@ -1,0 +1,23 @@
+class Solution {
+public:
+    bool uniqueOccurrences(vector<int>& arr) {
+        int sz = arr.size();
+
+        unordered_map<int, int>ump;
+        for(int i=0; i<sz; i++){
+            ump[arr[i]]++;
+        }
+        int umpsize = ump.size();
+
+        unordered_set<int>ust;
+        for(auto v : ump){
+            ust.insert(v.second);
+        }
+        int ustsize = ust.size();
+
+        if(ustsize == umpsize)return true;
+        else{
+            return false;
+        }
+    }
+};
