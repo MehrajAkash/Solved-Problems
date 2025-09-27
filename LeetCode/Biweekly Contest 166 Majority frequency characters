@@ -1,0 +1,35 @@
+
+class Solution {
+public:
+    string majorityFrequencyGroup(string s) {
+
+        unordered_map<char, int> freq;
+        for (char c : s) {
+            freq[c]++;
+        }
+
+        
+        unordered_map<int, vector<char> > groups;
+        for (auto &p : freq) {
+            groups[p.second].push_back(p.first);
+        }
+
+        int bestFreq = -1, bestSize = -1;
+        for (auto &g : groups) {
+            int k = g.first;             
+            int size = g.second.size(); 
+            
+            if (size > bestSize || (size == bestSize && k > bestFreq)) {
+                bestSize = size;
+                bestFreq = k;
+            }
+        }
+
+        string result;
+        for (char c : groups[bestFreq]) {
+            result.push_back(c);
+        }
+        
+        return result;
+    }
+}
