@@ -1,0 +1,60 @@
+class Solution {
+public:
+    bool closeStrings(string word1, string word2) {
+
+        int sz1 = word1.size(), sz2 = word2.size();
+        if( sz1 != sz2 )return false;
+
+        map<char, int> ump1;
+        map<char, int> ump2;
+
+        for(int i=0; i<sz1; i++){
+            ump1[ word1[i] ]++;
+        }
+        for(int i=0; i<sz2; i++){
+            ump2[ word2[i] ]++;
+        }
+
+        if( ump1.size() != ump2.size() )return false;
+
+         bool ans = true;
+
+        for( auto it1=ump1.begin(), it2=ump2.begin(); it1 != ump1.end(); ++it1,++it2 ){
+                
+                if(it1->first != it2->first){
+                    ans = false;
+                    break;
+                }
+        }
+        
+       if( !ans )return false;
+
+        vector<int>freq1;
+        vector<int>freq2;
+
+        for(auto v : ump1 ){
+            freq1.push_back(v.second);
+        }
+        sort( freq1.begin(), freq1.end() );
+
+        for(auto v : ump2 ){
+            freq2.push_back(v.second);
+        }
+         sort( freq2.begin(), freq2.end() );
+
+        for( auto it1 = freq1.begin(), it2 = freq2.begin();  it1 != freq1.end(); ++it1){
+            cout<<*it1<<"  "<<*it2<<endl;
+            if( *it1 != *it2 ){
+                ans = false;
+                break;
+            }
+            ++it2;
+        }
+        if( !ans )return ans;
+      
+        return true;
+    }
+};
+
+
+/********* Have to find out it's easiest solution ***********/
