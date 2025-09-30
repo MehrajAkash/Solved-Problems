@@ -32,7 +32,7 @@ class Solution {
 public:
     int equalPairs(std::vector<std::vector<int>>& grid) {
         int n = grid.size();
-        std::map<std::vector<int>, int> rowFrequencies;
+        map<vector<int>, int> rowFrequencies;
         int count = 0;
 
         // Populate the map with row frequencies
@@ -41,8 +41,8 @@ public:
         }
 
         // Iterate through columns and check against row frequencies
-        for (int j = 0; j < n; ++j) {
-            std::vector<int> currentColumn;
+            for (int j = 0; j < n; ++j) {
+            vector<int> currentColumn;
             for (int i = 0; i < n; ++i) {
                 currentColumn.push_back(grid[i][j]);
             }
