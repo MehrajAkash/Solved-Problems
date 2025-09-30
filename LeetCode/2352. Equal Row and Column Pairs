@@ -30,7 +30,7 @@ public:
 
 class Solution {
 public:
-    int equalPairs(std::vector<std::vector<int>>& grid) {
+    int equalPairs(vector<vector<int>>& grid) {
         int n = grid.size();
         map<vector<int>, int> rowFrequencies;
         int count = 0;
