@@ -2,42 +2,54 @@
 class Solution {
 public:
     int equalPairs(vector<vector<int>>& grid) {
-        int sz = grid.size();
-       vector< vector<int> >cgrid(sz, vector<int>(sz) );
+        int n = grid.size();
+        int count = 0;
 
-        for(int j=0; j<sz; j++)
-        {
-            for(int i=0; i<sz; i++){
-                cgrid[j][i] = (grid[i][j]);
-            }
-        }
-
-        vector<int>row;
-        int cnt=0, k=0;
-
-        for(int i=0; i<sz; i++){
-            for(int j=0; j<sz; j++){
-                row.push_back(grid[i][j]);
-            }
-
-            for(int ip=0; ip<sz; ip++){
-                int elm=0, p=0;
-                for( int jp=0; jp<sz; jp++ ){
-
-                    if(row[jp] == cgrid[ip][jp]){
-                        elm++;
-                        
-                        if(elm==sz){
-                            cnt++;
-                        }
-                    }
-                    else{
+        for (int i = 0; i < n; ++i) { // Iterate through each row
+            for (int j = 0; j < n; ++j) { // Iterate through each column
+                bool match = true;
+                for (int k = 0; k < n; ++k) { // Compare elements
+                    if (grid[i][k] != grid[k][j]) {
+                        match = false;
                         break;
                     }
                 }
+                if (match) {
+                    count++;
+                }
             }
-            row.clear();   
         }
-        return cnt;
+        return count;
+    }
+};
+
+
+/**************** Using HashMap **************************/
+#include <vector>
+#include <map>
+
+class Solution {
+public:
+    int equalPairs(std::vector<std::vector<int>>& grid) {
+        int n = grid.size();
+        std::map<std::vector<int>, int> rowFrequencies;
+        int count = 0;
+
+        // Populate the map with row frequencies
+        for (int i = 0; i < n; ++i) {
+            rowFrequencies[grid[i]]++;
+        }
+
+        // Iterate through columns and check against row frequencies
+        for (int j = 0; j < n; ++j) {
+            std::vector<int> currentColumn;
+            for (int i = 0; i < n; ++i) {
+                currentColumn.push_back(grid[i][j]);
+            }
+            if (rowFrequencies.count(currentColumn)) {
+                count += rowFrequencies[currentColumn];
+            }
+        }
+        return count;
     }
 };
