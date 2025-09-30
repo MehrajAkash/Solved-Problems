@@ -1,43 +1,43 @@
+/***** Brute force solution TC- O(N^3) ***************/
 class Solution {
 public:
     int equalPairs(vector<vector<int>>& grid) {
         int sz = grid.size();
-       vector< multiset<int> >cms(sz);
+       vector< vector<int> >cgrid(sz, vector<int>(sz) );
 
         for(int j=0; j<sz; j++)
         {
             for(int i=0; i<sz; i++){
-                cms[j].insert(grid[i][j]);
+                cgrid[j][i] = (grid[i][j]);
             }
         }
 
-        multiset<int>rms;
+        vector<int>row;
         int cnt=0, k=0;
 
         for(int i=0; i<sz; i++){
             for(int j=0; j<sz; j++){
-                rms.insert(grid[i][j]);
+                row.push_back(grid[i][j]);
             }
 
-            int elm=0;
-            for( auto rit=rms.begin(), cit=cms[k].begin(); rit!=rms.end(); ++rit,++cit ){
+            for(int ip=0; ip<sz; ip++){
+                int elm=0, p=0;
+                for( int jp=0; jp<sz; jp++ ){
 
-                if(*rit == *cit){
-                    elm++;
-
-                    if(elm==sz){
-                        cnt++;
+                    if(row[jp] == cgrid[ip][jp]){
+                        elm++;
+                        
+                        if(elm==sz){
+                            cnt++;
+                        }
+                    }
+                    else{
+                        break;
                     }
                 }
-                else{
-                    break;
-                }
             }
-            
-            k++;
-            rms.clear();
+            row.clear();   
         }
-        
         return cnt;
     }
 };
