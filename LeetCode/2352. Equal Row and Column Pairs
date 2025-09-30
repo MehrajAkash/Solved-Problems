@@ -41,7 +41,7 @@ public:
         }
 
         // Iterate through columns and check against row frequencies
-            for (int j = 0; j < n; ++j) {
+        for (int j = 0; j < n; ++j) {
             vector<int> currentColumn;
             for (int i = 0; i < n; ++i) {
                 currentColumn.push_back(grid[i][j]);
