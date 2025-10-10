@@ -1,0 +1,46 @@
+#include <algorithm>
+using namespace std;
+
+ vector<string>validtimes = {"00:00", "11:11", "22:22"};
+    
+    int tominutes(string time){
+        
+        int hr = stoi(time.substr(0, 2));
+        int mn = stoi(time.substr(3, 2));
+        
+        return hr*60+mn;
+    }
+
+int main() {
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */   
+    
+      int t;cin>>t;
+        
+        while(t--){
+            string cur;
+            cin>>cur;
+            
+            int curmin = tominutes(cur);
+            string nexttime = "";
+            
+            for(string vt : validtimes)
+            {
+                if(tominutes(vt) >= curmin)
+                {
+                    nexttime = vt;
+                    break;
+                }
+            }
+            
+            if(nexttime=="")
+            {
+                nexttime = validtimes[0];
+            }
+            
+            cout<<nexttime<<endl;
+            
+        }
+    
+    
+    return 0;
+}
