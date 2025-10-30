@@ -1,0 +1,41 @@
+class Solution {
+public:
+    int compress(vector<char>& chars) {
+
+        map<char,int>mp;
+
+        char tmp=chars[0];
+        int cnt=1;
+        string str="";
+
+        for(int i=1; i<chars.size(); i++)
+        {
+            if(chars[i] == tmp){
+                cnt++;
+            }
+            else{
+                str += tmp;
+
+                if(cnt > 1){
+                  str += to_string(cnt);
+                }
+
+                tmp = chars[i];
+                cnt = 1;
+            }
+        }
+
+        str += tmp;
+        if(cnt > 1){
+            str += to_string(cnt);
+        }
+
+       chars.clear();
+
+        for(int i=0; i<str.size(); i++){
+            chars.push_back(str[i]);
+        }
+
+        return chars.size();
+    }
+};
