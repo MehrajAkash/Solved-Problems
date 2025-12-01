@@ -1,0 +1,22 @@
+Q6.
+Write a C program to simulate a DFA that accepts all binary strings that contain an even number of 1s.  
+Use a small transition table (2 states × 2 symbols) and print “Accepted” or “Rejected” for the input string.
+
+// Q6: DFA check even number of 1s
+#include <iostream>
+using namespace std;
+
+int main() {
+    string s;
+    cin >> s;
+
+    int count = 0;
+    for (char c : s)
+        if (c == '1') count++;
+
+    if (count % 2 == 0) cout << "Accepted\n";
+    else cout << "Rejected\n";
+}
+
+Input: 101011
+Output: Accepted
