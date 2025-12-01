@@ -1,0 +1,43 @@
+Q1.
+Using the grammar L → id | id , L, where id is an identifier starting with a letter or _ followed by letters, digits, 
+or _, write a C program using recursive descent to check whether a given comma-separated list (e.g., a, a,b,c, x1, y2) is valid.
+
+// Q1: Check comma-separated identifiers using recursive descent
+#include <iostream>
+#include <cctype>
+using namespace std;
+
+string s;
+int i = 0;
+
+// identifier = letter/_ followed by letters/digits/_
+bool id() {
+    if (!isalpha(s[i]) && s[i] != '_') return false;
+    i++;
+    while (isalnum(s[i]) || s[i] == '_') i++;
+    return true;
+}
+
+// L → id | id , L
+bool L() {
+    if (!id()) return false;
+    if (s[i] == ',') {
+        i++;
+        return L();
+    }
+    return true;
+}
+
+int main() {
+    getline(cin, s);
+    if (L() && i == s.size()) 
+        cout << "Valid\n";
+    else 
+        cout << "Invalid\n";
+}
+
+
+Input: a,_x1,b2
+Output: Valid
+
+
