@@ -1,0 +1,70 @@
+Q2.
+Consider the expression grammar:
+
+- E → T E'
+- E' → + T E' | - T E' | ε
+- T → F T'
+- T' → * F T' | / F T' | ε
+- F → ( E ) | id
+
+Write a C program using recursive descent to check whether a given expression (with identifiers and integers) is syntactically valid.
+
+// Q2: Recursive descent parser for arithmetic expressions
+#include <iostream>
+#include <cctype>
+using namespace std;
+
+string s;
+int i = 0;
+
+bool E(); // forward declaration
+
+// id or number
+bool idnum() {
+    if (!isalnum(s[i]) && s[i] != '_') return false;
+    while (isalnum(s[i]) || s[i] == '_') i++;
+    return true;
+}
+
+// F → (E) | id
+bool F() {
+    if (s[i] == '(') {
+        i++;
+        if (!E()) return false;
+        if (s[i] != ')') return false;
+        i++;
+        return true;
+    }
+    return idnum();
+}
+
+// T → F (*F | /F)*
+bool T() {
+    if (!F()) return false;
+    while (s[i] == '*' || s[i] == '/') {
+        i++;
+        if (!F()) return false;
+    }
+    return true;
+}
+
+// E → T (+T | -T)*
+bool E() {
+    if (!T()) return false;
+    while (s[i] == '+' || s[i] == '-') {
+        i++;
+        if (!T()) return false;
+    }
+    return true;
+}
+
+int main() {
+    getline(cin, s);
+    if (E() && i == s.size()) cout << "Valid\n";
+    else cout << "Invalid\n";
+}
+
+
+input: a+b*(c-2)
+output: Valid
+
