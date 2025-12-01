@@ -1,0 +1,39 @@
+ Q10.
+Write a C program that reads C source code from standard input and outputs the same code but with all comments removed.  
+Your program should remove:
+- single-line comments starting with // until the end of the line, and  
+- multi-line comments enclosed by /* and */.
+
+// Q10: Remove // and /* */ comments
+#include <iostream>
+using namespace std;
+
+int main() {
+    string s;
+
+    while (getline(cin, s)) {
+        for (int i = 0; i < s.size(); i++) {
+
+            // single-line comment //
+            if (s[i]=='/' && s[i+1]=='/') break;
+
+            // multi-line comment /* ... */
+            if (s[i]=='/' && s[i+1]=='*') {
+                i += 2;
+                while (!(s[i]=='*' && s[i+1]=='/')) i++;
+                i++; // skip '/'
+            }
+            else {
+                cout << s[i];
+            }
+        }
+        cout << "\n";
+    }
+}
+
+Input: int x = 10; // initialize
+/* remove this */ x++;
+Output:
+int x = 10;
+ x++;
+
