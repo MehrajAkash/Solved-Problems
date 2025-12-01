@@ -1,0 +1,31 @@
+Q3.
+Using the grammar S → ( S ) S | ε, write a recursive-descent C program that reads a string of parentheses (only ( and )) 
+and prints whether it is a valid balanced string according to this grammar.
+
+// Q3: Check balanced parentheses using recursive descent
+#include <iostream>
+using namespace std;
+
+string s;
+int i = 0;
+
+// S → (S)S | ε
+bool S() {
+    if (s[i] == '(') {
+        i++;
+        if (!S()) return false;
+        if (s[i] != ')') return false;
+        i++;
+        return S(); // continue parsing
+    }
+    return true; // epsilon
+}
+
+int main() {
+    cin >> s;
+    if (S() && i == s.size()) cout << "Balanced\n";
+    else cout << "Not Balanced\n";
+}
+
+Input:  (()())
+Output: Balanced
