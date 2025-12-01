@@ -1,0 +1,44 @@
+Q9.
+Write a C program that repeatedly reads words until EOF and classifies each word as:
+- a C keyword (from a small fixed list, e.g., int, if, else, for, while, return, char, float, double, void),
+- a valid identifier,
+- or an invalid token.
+
+Print the classification for each word.
+
+// Q9: Classify words as keyword, identifier or invalid
+#include <iostream>
+#include <cctype>
+#include <vector>
+using namespace std;
+
+bool isIdent(string w) {
+    if (!isalpha(w[0]) && w[0] != '_') return false;
+    for (char c : w)
+        if (!isalnum(c) && c!='_') return false;
+    return true;
+}
+
+int main() {
+    vector<string> key = {"int","if","else","for","while","return","char","float","double","void"};
+    string w;
+
+    while (cin >> w) {
+        bool isKey = false;
+        for (auto k : key)
+            if (w == k) isKey = true;
+
+        if (isKey) cout << w << " → KEYWORD\n";
+        else if (isIdent(w)) cout << w << " → IDENTIFIER\n";
+        else cout << w << " → INVALID\n";
+    }
+}
+
+Input: int x var1 12abc while z_
+Output:
+int → KEYWORD
+x → IDENTIFIER
+var1 → IDENTIFIER
+12abc → INVALID
+while → KEYWORD
+z_ → IDENTIFIER
