@@ -1,0 +1,40 @@
+Q4.
+The grammar S → a S b | a b generates strings of the form a^n b^n.  
+Write a recursive-descent C program that reads a string over {a, b} and checks whether it belongs to this language.
+
+// Q4: Recognize language a^n b^n
+#include <iostream>
+using namespace std;
+
+string s;
+int i = 0;
+
+// S → aSb | ab
+bool S() {
+    if (s[i] != 'a') return false;
+    i++;
+
+    if (s[i] == 'b') { // "ab"
+        i++;
+        return true;
+    }
+
+    if (!S()) return false;
+
+    if (s[i] != 'b') return false;
+    i++;
+
+    return true;
+}
+
+int main() {
+    cin >> s;
+    if (S() && i == s.size()) 
+        cout << "Valid\n";
+    else 
+        cout << "Invalid\n";
+}
+
+Input: aaabbb
+Output: Valid
+
